@@ -1,0 +1,15 @@
+.header-set {
+  $self: &;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 1rem;
+  padding: 2rem 5rem 2rem 2rem;
+
+  &__btn {
+    #{$self}__icon {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.header {
+  $self: &;
+  display: flex;
+  align-items: center;
+  gap: 16rem;
+  padding: 2rem 2rem 2rem 5rem;
+
+  &__logo {
+  }
+
+  &__welcome-text {
+    color: #fff;
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+}
