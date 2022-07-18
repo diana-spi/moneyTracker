@@ -1,0 +1,24 @@
+@import "/src/styles/colors.scss";
+
+.filter-block {
+  $self: &;
+  margin: 10px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    #{$self}__btn {
+      width: 90px;
+    }
+  }
+  &__bank-acc {
+    width: 200px;
+    #{$self}__form {
+      width: 200px;
+    }
+  }
+}
