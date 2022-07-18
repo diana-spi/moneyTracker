@@ -1,0 +1,39 @@
+@import "src/styles/colors.scss";
+
+.transaction-card {
+  $self: &;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 10px;
+  background-color: $background-color-main-light;
+  border-radius: 15px;
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    #{$self}__title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    #{$self}__price {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    #{$self}__comment {
+      font-size: 12px;
+      font-weight: 400;
+    }
+    #{$self}__date {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+}

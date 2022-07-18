@@ -6,6 +6,20 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
+  components: {
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          margin: "0 !important",
+          padding: "0 !important",
+        },
+        item: {
+          margin: "0 !important",
+          padding: "0 !important",
+        },
+      },
+    },
+  },
 });
 
 function App() {

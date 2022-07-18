@@ -3,17 +3,20 @@
 
 .main-page {
   $self: &;
-  width: 100%;
+  width: 100% !important;
   height: 100vh;
   background: linear-gradient(110deg, $background-color-main, 90%, $background-color-gradient-first);
   display: flex;
 
   &__analitycs-block {
-    flex: 2;
   }
 
-  &__transactions-block {
-    flex: 1;
-    background-color: $background-color-main;
+  &__transaction-block {
+    height: 100%;
+    #{$self}__transaction-wrap {
+      background-color: $background-color-main;
+      height: 100%;
+      overflow: hidden;
+    }
   }
 }

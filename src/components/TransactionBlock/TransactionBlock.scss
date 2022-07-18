@@ -1,0 +1,29 @@
+@import "src/styles/colors.scss";
+
+.transaction-block {
+  $self: &;
+  margin: 10px 50px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: auto;
+
+  &__accardion {
+    background-color: $background-color-main-dark !important;
+    background-image: none !important;
+    padding: 20px 30px;
+    border-radius: 20px !important;
+    #{$self}__title {
+      font-weight: 600;
+    }
+    #{$self}__cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-right: 15px;
+
+      height: 500px;
+      overflow: scroll;
+    }
+  }
+}

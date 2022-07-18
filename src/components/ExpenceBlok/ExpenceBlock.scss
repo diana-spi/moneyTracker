@@ -1,0 +1,83 @@
+@import "src/styles/colors.scss";
+
+.expence-block {
+  $self: &;
+  margin: 10px 50px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+
+  &__accardion {
+    background-color: $background-color-main-dark !important;
+    background-image: none !important;
+    padding: 20px 30px;
+    border-radius: 20px !important;
+  }
+
+  #{$self}__title {
+    font-weight: 600;
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    #{$self}__type {
+      display: flex;
+      flex-direction: column;
+      &-select {
+        width: 100%;
+      }
+    }
+    #{$self}__date {
+      display: flex;
+      flex-direction: column;
+      label {
+        font-weight: 500;
+      }
+      &-picker {
+        width: 100%;
+      }
+    }
+    #{$self}__category {
+      display: flex;
+      flex-direction: column;
+      &-select {
+        width: 100%;
+      }
+    }
+    #{$self}__sum {
+      display: flex;
+      flex-direction: column;
+    }
+    #{$self}__comment {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #{$self}__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      gap: 16px;
+
+      .clear-btn {
+        font-size: 12px;
+        font-weight: 400;
+        width: 80px;
+      }
+      .add-btn {
+        font-size: 16px;
+        font-weight: 700;
+        width: 90px;
+      }
+    }
+  }
+  .title-field {
+    font-weight: 500;
+  }
+  .select-field {
+    font-weight: 400;
+  }
+}
