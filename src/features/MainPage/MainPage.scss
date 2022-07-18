@@ -17,6 +17,12 @@
       background-color: $background-color-main;
       height: 100%;
       overflow: hidden;
+      #{$self}__tabs {
+        margin: 10px 50px 30px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

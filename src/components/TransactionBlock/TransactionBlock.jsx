@@ -6,25 +6,16 @@ import TransactionCard from "../TransactionCard/TransactionCard";
 function TransactionBlock() {
   return (
     <div className="transaction-block">
-      <Accordion className="transaction-block__accardion">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className="transaction-block__title" variant="h6">
-            Last transactions
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className="transaction-block__cards-list">
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-          </div>
-        </AccordionDetails>
-      </Accordion>
+      <div className="transaction-block__cards-list">
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+        <TransactionCard />
+      </div>
     </div>
   );
 }

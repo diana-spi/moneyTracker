@@ -7,17 +7,6 @@
   flex-direction: column;
   height: auto;
 
-  &__accardion {
-    background-color: $background-color-main-dark !important;
-    background-image: none !important;
-    padding: 20px 30px;
-    border-radius: 20px !important;
-  }
-
-  #{$self}__title {
-    font-weight: 600;
-  }
-
   &__wrap {
     display: flex;
     flex-direction: column;
