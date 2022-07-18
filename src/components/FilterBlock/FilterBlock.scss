@@ -14,11 +14,31 @@
     #{$self}__btn {
       width: 90px;
     }
+    #{$self}__calendar {
+      .MuiButton-root {
+        background: none;
+        color: #90caf9;
+        border: 1px solid #90caf980;
+      }
+    }
   }
   &__bank-acc {
-    width: 200px;
     #{$self}__form {
-      width: 200px;
+      width: 300px;
+
+      .MuiBox-root {
+        flex-wrap: nowrap;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .MuiChip-root {
+          height: 23px;
+          font-size: 12px;
+        }
+      }
     }
   }
 }

@@ -1,21 +1,37 @@
 import "./FilterBlock.scss";
-import * as React from "react";
+import React, { useState } from "react";
 import { OutlinedInput, InputLabel, MenuItem, FormControl, Select, Box, Chip, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { CalendarPicker } from "mui-calendar-picker";
 
-const names = ["Monobank", "Privat", "PUMB"];
+const names = ["MonobankMonobank", "PrivatPrivat", "PUMBPUMB"];
+
+const intervalVariants = {
+  DAY: "day",
+  WEEK: "week",
+  MONTH: "month",
+  YEAR: "year",
+  NOTHING: null,
+};
+
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
   };
 }
+
 function FilterBlock() {
-  const [value, setValue] = React.useState([null, null]);
+  const [selectedInterval, setSelectedInterval] = useState(intervalVariants.DAY);
+  const [dateRange, setDateRange] = useState(null);
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [personName, setPersonName] = useState([]);
+
+  const onSelectInterval = (interval) => {
+    setSelectedInterval(interval);
+    setDateRange(null);
+  };
 
   const handleChange = (event) => {
     const {
@@ -29,29 +45,49 @@ function FilterBlock() {
   return (
     <div className="filter-block">
       <div className="filter-block__buttons">
-        <Button className="filter-block__btn" variant="outlined">
+        <Button
+          className="filter-block__btn"
+          variant={selectedInterval === intervalVariants.DAY ? "contained" : "outlined"}
+          onClick={() => onSelectInterval(intervalVariants.DAY)}
+        >
           Day
         </Button>
-        <Button className="filter-block__btn" variant="outlined">
+        <Button
+          className="filter-block__btn"
+          variant={selectedInterval === intervalVariants.WEEK ? "contained" : "outlined"}
+          onClick={() => onSelectInterval(intervalVariants.WEEK)}
+        >
           Week
         </Button>
-        <Button className="filter-block__btn" variant="outlined">
+        <Button
+          className="filter-block__btn"
+          variant={selectedInterval === intervalVariants.MONTH ? "contained" : "outlined"}
+          onClick={() => onSelectInterval(intervalVariants.MONTH)}
+        >
           Month
         </Button>
-        <Button className="filter-block__btn" variant="outlined">
+        <Button
+          className="filter-block__btn"
+          variant={selectedInterval === intervalVariants.YEAR ? "contained" : "outlined"}
+          onClick={() => onSelectInterval(intervalVariants.YEAR)}
+        >
           Year
         </Button>
-
-        <CalendarPicker
-          theme={theme}
-          openBtnText={"Period"} // optional
-          todayBtnText={"Back to Today"} // optional
-          confirmBtnText={"Submit"} // optional
-          className="filter-block__btn"
-        />
+        <div className={`filter-block__calendar${dateRange ? "--filled" : ""}`}>
+          <CalendarPicker
+            theme={theme}
+            openBtnText={"Period"} // optional
+            todayBtnText={"Back to Today"} // optional
+            confirmBtnText={"Submit"} // optional
+            setDateRange={(dateRange) => {
+              setDateRange(dateRange);
+              setSelectedInterval(intervalVariants.NOTHING);
+            }}
+          />
+        </div>
       </div>
       <div className="filter-block__bank-acc">
-        <FormControl className="filter-block__form">
+        <FormControl className="filter-block__form" size="small">
           <InputLabel id="demo-multiple-chip-label">Bank account</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
