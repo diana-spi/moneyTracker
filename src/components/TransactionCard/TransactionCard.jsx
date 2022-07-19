@@ -1,18 +1,21 @@
 import "./TransactionCard.scss";
 import { Grid, Box, Chip } from "@mui/material";
+import { transactionTypes } from "../../data/transactions";
+import moment from "moment";
+import { upperFirst } from "lodash";
 
-function TransactionCard() {
+function TransactionCard({ type, category, sum, date, comment }) {
   return (
     <div className="transaction-card">
       <div className="transaction-card__row">
-        <div className="transaction-card__title">Food</div>
-        <div className="transaction-card__price">
-          <Chip label="-120$" color="primary" />
+        <div className="transaction-card__title">{upperFirst(category)}</div>
+        <div className={`transaction-card__price--${type === transactionTypes.OUTCOME ? "outcome" : "income"}`}>
+          <Chip label={`${type === transactionTypes.OUTCOME ? "-" : ""}${sum}$`} />
         </div>
       </div>
       <div className="transaction-card__row">
-        <div className="transaction-card__comment">Comment very very very laaaaarge</div>
-        <div className="transaction-card__date">14/07/2022</div>
+        <div className="transaction-card__comment">{comment}</div>
+        <div className="transaction-card__date">{moment(date).format("DD.MM.YYYY")}</div>
       </div>
     </div>
   );

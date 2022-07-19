@@ -1,0 +1,146 @@
+export const transactionTypes = {
+  OUTCOME: "outcome",
+  INCOME: "income",
+};
+export const transactionsCategories = {
+  FOOD: "food",
+  HEALTH: "health",
+  CAR: "car",
+  OTHER: "other",
+  PET: "pet",
+  TRAVEL: "travel",
+};
+export const transactionsAccounts = {
+  MONOBANK: "monobank",
+  PRIVAT: "privat",
+  PUMB: "pumb",
+};
+export const incomeCategory = {
+  SALARY: "salary",
+  PRIVATE_BUSINESS: "private business",
+};
+
+const transactions = [
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.OUTCOME,
+    sum: 128,
+    category: transactionsCategories.FOOD,
+    date: new Date("2022-07-18"),
+    comment: "Покупка молока",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 35,
+    category: transactionsCategories.HEALTH,
+    date: new Date("2022-07-19"),
+    comment: "Покупка ліків",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 18,
+    category: transactionsCategories.PET,
+    date: new Date("2022-07-19"),
+    comment: "Купівля їжі",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 56,
+    category: transactionsCategories.PET,
+    date: new Date("2022-07-17"),
+    comment: "Купівля іграшки",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.INCOME,
+    sum: 800,
+    category: incomeCategory.SALARY,
+    date: new Date("2022-07-15"),
+    comment: "Зарплатня",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 22,
+    category: transactionsCategories.OTHER,
+    date: new Date("2022-07-16"),
+    comment: "Покупка постільної білизни",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 100,
+    category: transactionsCategories.CAR,
+    date: new Date("2022-07-17"),
+    comment: "Бензин",
+  },
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.INCOME,
+    sum: 400,
+    category: incomeCategory.PRIVATE_BUSINESS,
+    date: new Date("2022-07-01"),
+    comment: "Оплата за послуги ІТ-проекту",
+  },
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.OUTCOME,
+    sum: 88,
+    category: transactionsCategories.CAR,
+    date: new Date("2022-07-02"),
+    comment: "Обслуговування автомобіля",
+  },
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.OUTCOME,
+    sum: 129,
+    category: transactionsCategories.TRAVEL,
+    date: new Date("2022-07-03"),
+    comment: "Поїздка в Карпати",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 234,
+    category: transactionsCategories.HEALTH,
+    date: new Date("2022-07-19"),
+    comment: "Лікарняна послуга",
+  },
+  {
+    account: transactionsAccounts.PRIVAT,
+    type: transactionTypes.OUTCOME,
+    sum: 29,
+    category: transactionsCategories.OTHER,
+    date: new Date("2022-07-19"),
+    comment: "Покупка постільної білизни",
+  },
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.OUTCOME,
+    sum: 56,
+    category: transactionsCategories.TRAVEL,
+    date: new Date("2022-07-04"),
+    comment: "Обід в Карпатах",
+  },
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.OUTCOME,
+    sum: 33,
+    category: transactionsCategories.FOOD,
+    date: new Date("2022-07-05"),
+    comment: "Покупка продуктів",
+  },
+  {
+    account: transactionsAccounts.MONOBANK,
+    type: transactionTypes.OUTCOME,
+    sum: 28,
+    category: transactionsCategories.FOOD,
+    date: new Date("2022-07-06"),
+    comment: "Покупка продуктів",
+  },
+];
+
+export default transactions;

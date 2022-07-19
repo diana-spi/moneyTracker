@@ -5,6 +5,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: {
+      main: "#74c8da", //$primary-color
+    },
   },
   components: {
     MuiGrid: {

@@ -5,13 +5,22 @@
   gap: 160px;
   padding: 20px 20px 20px 50px;
   height: 80px;
-
   &__logo {
+    div {
+      height: 100%;
+
+      svg {
+        height: 100%;
+      }
+    }
   }
 
   &__welcome-text {
     color: #fff;
     font-size: 24px;
     font-weight: 700;
+    height: 100%;
+    display: flex;
+    align-items: end;
   }
 }

@@ -12,7 +12,6 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -21,6 +20,19 @@ function ExpenceBlock() {
   return (
     <div className="expence-block">
       <div className="expence-block__wrap">
+        <div className="expence-block__account">
+          <FormControl>
+            <InputLabel variant="standard" className="title-field">
+              Bank account
+            </InputLabel>
+            <NativeSelect className="select-field" defaultValue="monobank">
+              <option value="monobank">Monobank</option>
+              <option value="privat">Privat</option>
+              <option value="pumb">PUMB</option>
+            </NativeSelect>
+          </FormControl>
+        </div>
+
         <div className="expence-block__type">
           <FormControl>
             <InputLabel variant="standard" className="title-field">

@@ -2,7 +2,7 @@
 
 .expence-block {
   $self: &;
-  margin: 10px 50px;
+  margin: 20px 50px 40px 50px;
   display: flex;
   flex-direction: column;
   height: auto;
@@ -10,7 +10,15 @@
   &__wrap {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
+
+    #{$self}__account {
+      display: flex;
+      flex-direction: column;
+      &-select {
+        width: 100%;
+      }
+    }
 
     #{$self}__type {
       display: flex;

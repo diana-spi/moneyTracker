@@ -17,8 +17,8 @@
     #{$self}__calendar {
       .MuiButton-root {
         background: none;
-        color: #90caf9;
-        border: 1px solid #90caf980;
+        color: $primary-color;
+        border: 1px solid $primary-color-border;
       }
     }
   }

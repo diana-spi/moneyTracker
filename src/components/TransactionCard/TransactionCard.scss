@@ -6,7 +6,7 @@
   flex-direction: column;
   padding: 16px;
   gap: 10px;
-  background-color: $background-color-main-light;
+  background-color: $background-color-main-light-o;
   border-radius: 15px;
 
   &__row {
@@ -19,10 +19,26 @@
       font-size: 18px;
       font-weight: 600;
     }
-    #{$self}__price {
+
+    @mixin price {
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+      .MuiChip-root {
+        width: 70px;
+      }
+    }
+    #{$self}__price--outcome {
+      @include price;
+      .MuiChip-root {
+        background-color: $color-chip-outcome;
+      }
+    }
+    #{$self}__price--income {
+      @include price;
+      .MuiChip-root {
+        background-color: $color-chip-income;
+      }
     }
     #{$self}__comment {
       font-size: 12px;

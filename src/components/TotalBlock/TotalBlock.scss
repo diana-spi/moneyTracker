@@ -1,1 +1,42 @@
 @import "src/styles/colors.scss";
+
+.total-block {
+  $self: &;
+  margin: 20px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 250px;
+
+  @mixin total-sum {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  @mixin total-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: $background-color-main-light;
+  }
+  &__income {
+    padding: 10px;
+    text-align: left;
+    #{$self}__income-sum {
+      @include total-sum;
+      color: $color-chip-income;
+    }
+    #{$self}__income-title {
+      @include total-title;
+    }
+  }
+  &__outcome {
+    padding: 10px;
+    text-align: left;
+    #{$self}__outcome-sum {
+      @include total-sum;
+      color: $color-chip-outcome;
+    }
+    #{$self}__outcome-title {
+      @include total-title;
+    }
+  }
+}

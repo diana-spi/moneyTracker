@@ -1,20 +1,24 @@
 import "./TransactionBlock.scss";
-import { Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
+import transactionsData from "../../data/transactions";
 import TransactionCard from "../TransactionCard/TransactionCard";
+import Moment from "moment";
 
 function TransactionBlock() {
   return (
     <div className="transaction-block">
       <div className="transaction-block__cards-list">
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
+        {transactionsData
+          .sort((a, b) => new Moment(b.date) - new Moment(a.date))
+          .map((transaction) => (
+            <TransactionCard
+              key={Math.random()}
+              type={transaction.type}
+              category={transaction.category}
+              sum={transaction.sum}
+              date={transaction.date}
+              comment={transaction.comment}
+            />
+          ))}
       </div>
     </div>
   );
