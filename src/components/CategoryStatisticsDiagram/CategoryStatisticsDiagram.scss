@@ -1,0 +1,13 @@
+@import "src/styles/colors.scss";
+
+.category-statistics-diagram__tooltip {
+  height: 20px !important;
+  background-color: $background-color-main-light;
+  border-radius: 5px;
+  margin: 290px 0 0 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}

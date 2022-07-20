@@ -7,6 +7,7 @@ import TransactionBlock from "../../components/TransactionBlock/TransactionBlock
 import FilterBlock from "../../components/FilterBlock/FilterBlock";
 import TotalBlock from "../../components/TotalBlock/TotalBlock";
 import "./MainPage.scss";
+import Dashboard from "../../components/Dashboard/Dashboard";
 
 function MainPage() {
   const [currentTab, setCurrentTab] = useState(0);
@@ -22,6 +23,7 @@ function MainPage() {
           <Header userName="Dima" />
           <FilterBlock />
           <TotalBlock />
+          <Dashboard />
         </div>
       </Grid>
       <Grid className="main-page__transaction-block" item xs={3.5}>
