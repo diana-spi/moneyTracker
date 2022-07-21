@@ -2,9 +2,11 @@ import "./CategoryStatistics.scss";
 import { Tabs, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 import CategoryStatisticsDiagram from "../CategoryStatisticsDiagram/CategoryStatisticsDiagram";
+import CategoryStatisticsCard from "../CategoryStatisticsCard/CategoryStatisticsCard";
 import transactions from "../../data/transactions";
 import getRandomNumber from "../../helpers/getRandomNumber";
 import { upperFirst, sum } from "lodash";
+import { transactionTypes } from "../../data/transactions";
 
 function CategoryStatistics() {
   const [currentTab, setCurrentTab] = useState(0);
@@ -26,6 +28,7 @@ function CategoryStatistics() {
     "#74c8da",
   ];
   const categorySums = transactions
+    .filter((transaction) => transaction.type === transactionTypes.OUTCOME)
     // Get the category and sum of the transaction
     .reduce((acc, transaction) => {
       if (!acc[transaction.category]) {
@@ -47,7 +50,6 @@ function CategoryStatistics() {
       color: diagramColors[getRandomNumber(0, diagramColors.length - 1)],
     };
   });
-  console.log(diagramData);
 
   return (
     <div className="category-statistics">
@@ -59,8 +61,17 @@ function CategoryStatistics() {
         <Tab label="Income" />
       </Tabs>
       {currentTab === 0 && (
-        <div className="category-diagram">
-          <CategoryStatisticsDiagram data={diagramData} totalSum={categoriesTotal} />
+        <div className="category-statistics__category-outcome">
+          <div className="category-statistics__category-list">
+            {diagramData
+              .sort((a, b) => b.value - a.value)
+              .map((category) => {
+                return <CategoryStatisticsCard category={upperFirst(category.label)} sum={category.value} />;
+              })}
+          </div>
+          <div className="category-statistics__category-diagram">
+            <CategoryStatisticsDiagram data={diagramData} totalSum={categoriesTotal} />
+          </div>
         </div>
       )}
       {currentTab === 1 && <div>Income</div>}

@@ -1,5 +1,5 @@
 import "./TransactionCard.scss";
-import { Grid, Box, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 import { transactionTypes } from "../../data/transactions";
 import moment from "moment";
 import { upperFirst } from "lodash";

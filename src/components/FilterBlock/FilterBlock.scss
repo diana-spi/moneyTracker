@@ -13,30 +13,49 @@
     gap: 15px;
     #{$self}__btn {
       width: 90px;
+      height: 25px;
     }
     #{$self}__calendar {
       .MuiButton-root {
         background: none;
         color: $primary-color;
         border: 1px solid $primary-color-border;
+        height: 25px;
+      }
+      &:hover {
+        .MuiButton-root {
+          background: #74c8da14;
+          color: $primary-color;
+        }
       }
     }
   }
   &__bank-acc {
     #{$self}__form {
-      width: 300px;
-
-      .MuiBox-root {
-        flex-wrap: nowrap;
-        overflow: auto;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        &::-webkit-scrollbar {
-          display: none;
+      max-width: 700px;
+      #{$self}__select {
+        height: 25px;
+        &:hover {
+          background: #74c8da14;
+          color: $primary-color;
         }
-        .MuiChip-root {
-          height: 23px;
-          font-size: 12px;
+
+        .MuiSelect-select {
+          font-size: 14px;
+          text-transform: uppercase;
+          color: #74c8da;
+          font-weight: 500;
+          line-height: 1.75;
+          letter-spacing: 0.02857em;
+          em {
+            font-style: normal;
+          }
+        }
+        svg {
+          fill: #74c8da;
+        }
+        fieldset {
+          border: 1px solid rgba(116, 200, 218, 0.5);
         }
       }
     }

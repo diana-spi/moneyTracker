@@ -1,0 +1,24 @@
+@import "src/styles/colors.scss";
+
+.category-statistics-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+  background-color: $background-color-main-light-o;
+  //background: linear-gradient(90deg, $background-color-main, 10%, $background-color-gradient-first);
+  border-radius: 8px;
+  margin-right: 20px;
+  &:last-child {
+    margin-bottom: 10px;
+  }
+  &:first-child {
+    margin-top: 10px;
+  }
+  &__category {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  &__sum {
+  }
+}

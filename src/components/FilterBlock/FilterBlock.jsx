@@ -4,7 +4,7 @@ import { OutlinedInput, InputLabel, MenuItem, FormControl, Select, Box, Chip, Bu
 import { useTheme } from "@mui/material/styles";
 import { CalendarPicker } from "mui-calendar-picker";
 
-const names = ["MonobankMonobank", "PrivatPrivat", "PUMBPUMB"];
+const names = ["Monobank", "Privat", "PUMB"];
 
 const intervalVariants = {
   DAY: "day",
@@ -88,7 +88,30 @@ function FilterBlock() {
       </div>
       <div className="filter-block__bank-acc">
         <FormControl className="filter-block__form" size="small">
-          <InputLabel id="demo-multiple-chip-label">Bank account</InputLabel>
+          <Select
+            className="filter-block__select"
+            multiple
+            displayEmpty
+            value={personName}
+            onChange={handleChange}
+            input={<OutlinedInput />}
+            renderValue={(selected) => {
+              if (selected.length === 0) {
+                return <em>Bank account</em>;
+              }
+
+              return selected.join(", ");
+            }}
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            {names.map((name) => (
+              <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+
+          {/* <InputLabel id="demo-multiple-chip-label">Bank account</InputLabel>
           <Select
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
@@ -109,7 +132,7 @@ function FilterBlock() {
                 {name}
               </MenuItem>
             ))}
-          </Select>
+          </Select> */}
         </FormControl>
       </div>
     </div>

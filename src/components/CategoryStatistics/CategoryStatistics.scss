@@ -1,10 +1,29 @@
 @import "src/styles/colors.scss";
 
 .category-statistics {
-  .category-diagram {
+  $self: &;
+
+  &__category-outcome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 300px;
-    div {
+    padding: 10px 0 10px 20px;
+
+    #{$self}__category-list {
+      flex: 1;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: auto;
+    }
+    #{$self}__category-diagram {
+      flex: 1;
+      height: 100%;
+      div {
+        height: 100%;
+      }
     }
   }
 }
