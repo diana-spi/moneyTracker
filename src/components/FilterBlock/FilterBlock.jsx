@@ -1,18 +1,11 @@
 import "./FilterBlock.scss";
 import React, { useState } from "react";
-import { OutlinedInput, InputLabel, MenuItem, FormControl, Select, Box, Chip, Button } from "@mui/material";
+import { OutlinedInput, FormControl, Select, Button, MenuItem } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { CalendarPicker } from "mui-calendar-picker";
+import intervalVariants from "../../constans/filterValues";
 
 const names = ["Monobank", "Privat", "PUMB"];
-
-const intervalVariants = {
-  DAY: "day",
-  WEEK: "week",
-  MONTH: "month",
-  YEAR: "year",
-  NOTHING: null,
-};
 
 function getStyles(name, personName, theme) {
   return {
@@ -21,8 +14,8 @@ function getStyles(name, personName, theme) {
   };
 }
 
-function FilterBlock() {
-  const [selectedInterval, setSelectedInterval] = useState(intervalVariants.DAY);
+function FilterBlock({ onSelectFilter }) {
+  const [selectedInterval, setSelectedInterval] = useState(intervalVariants.MONTH);
   const [dateRange, setDateRange] = useState(null);
 
   const theme = useTheme();
@@ -31,6 +24,7 @@ function FilterBlock() {
   const onSelectInterval = (interval) => {
     setSelectedInterval(interval);
     setDateRange(null);
+    onSelectFilter(interval);
   };
 
   const handleChange = (event) => {
@@ -42,6 +36,7 @@ function FilterBlock() {
       typeof value === "string" ? value.split(",") : value
     );
   };
+
   return (
     <div className="filter-block">
       <div className="filter-block__buttons">
@@ -110,29 +105,6 @@ function FilterBlock() {
               </MenuItem>
             ))}
           </Select>
-
-          {/* <InputLabel id="demo-multiple-chip-label">Bank account</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            value={personName}
-            onChange={handleChange}
-            input={<OutlinedInput id="select-multiple-chip" label=">Bank account" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-          >
-            {names.map((name) => (
-              <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select> */}
         </FormControl>
       </div>
     </div>

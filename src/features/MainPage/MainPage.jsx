@@ -8,9 +8,11 @@ import FilterBlock from "../../components/FilterBlock/FilterBlock";
 import TotalBlock from "../../components/TotalBlock/TotalBlock";
 import "./MainPage.scss";
 import Dashboard from "../../components/Dashboard/Dashboard";
+import intervalVariants from "../../constans/filterValues";
 
 function MainPage() {
   const [currentTab, setCurrentTab] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState(intervalVariants.MONTH);
 
   const onTabSelect = (_, tabIndex) => {
     setCurrentTab(tabIndex);
@@ -21,9 +23,9 @@ function MainPage() {
       <Grid item xs={8.5}>
         <div className="main-page__analitycs-block">
           <Header userName="Dima" />
-          <FilterBlock />
+          <FilterBlock onSelectFilter={setSelectedFilter} />
           <TotalBlock />
-          <Dashboard />
+          <Dashboard selectedFilter={selectedFilter} />
         </div>
       </Grid>
       <Grid className="main-page__transaction-block" item xs={3.5}>

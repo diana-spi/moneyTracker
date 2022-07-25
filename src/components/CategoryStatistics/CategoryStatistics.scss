@@ -2,14 +2,15 @@
 
 .category-statistics {
   $self: &;
-
+  &__title {
+    margin-bottom: 0 !important;
+  }
   &__category-outcome {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 300px;
     padding: 10px 0 10px 20px;
-
     #{$self}__category-list {
       flex: 1;
       height: 100%;

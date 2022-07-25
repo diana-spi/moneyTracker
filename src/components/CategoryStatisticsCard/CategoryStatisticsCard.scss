@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 30px;
+  padding: 8px 30px;
   background-color: $background-color-main-light-o;
   //background: linear-gradient(90deg, $background-color-main, 10%, $background-color-gradient-first);
   border-radius: 8px;
@@ -17,7 +17,7 @@
   }
   &__category {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
   }
   &__sum {
   }

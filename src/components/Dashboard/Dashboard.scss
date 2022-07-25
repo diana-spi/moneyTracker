@@ -1,5 +1,8 @@
 @import "src/styles/colors.scss";
 
 .dashboard {
-  margin: 10px 50px;
+  margin: 0 20px 0px 20px;
+  padding: 20px 30px;
+  background-color: $background-color-main-dark-o;
+  border-radius: 15px;
 }

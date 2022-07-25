@@ -7,8 +7,10 @@ import transactions from "../../data/transactions";
 import getRandomNumber from "../../helpers/getRandomNumber";
 import { upperFirst, sum } from "lodash";
 import { transactionTypes } from "../../data/transactions";
+import moment from "moment";
+import intervalVariants from "../../constans/filterValues";
 
-function CategoryStatistics() {
+function CategoryStatistics({ selectedFilter }) {
   const [currentTab, setCurrentTab] = useState(0);
 
   const onTabSelect = (_, tabIndex) => {
@@ -27,8 +29,32 @@ function CategoryStatistics() {
     "#347481",
     "#74c8da",
   ];
+  const getStartedDate = () => {
+    let firstDate = moment();
+
+    switch (selectedFilter) {
+      case intervalVariants.DAY:
+        firstDate.hour(0).minute(0).second(0);
+        break;
+      case intervalVariants.WEEK:
+        firstDate.day(1).hour(0).minute(0).second(0);
+        break;
+      case intervalVariants.MONTH:
+        firstDate.date(1).hour(0).minute(0).second(0);
+        break;
+      case intervalVariants.YEAR:
+        firstDate.month(0).date(1).hour(0).minute(0).second(0);
+        break;
+      default:
+    }
+
+    return firstDate;
+  };
   const categorySums = transactions
-    .filter((transaction) => transaction.type === transactionTypes.OUTCOME)
+    .filter(
+      (transaction) => transaction.type === (currentTab === 0 ? transactionTypes.OUTCOME : transactionTypes.INCOME)
+    )
+    .filter((transaction) => transaction.date >= getStartedDate().toDate() && transaction.date <= moment().toDate())
     // Get the category and sum of the transaction
     .reduce((acc, transaction) => {
       if (!acc[transaction.category]) {
@@ -53,28 +79,25 @@ function CategoryStatistics() {
 
   return (
     <div className="category-statistics">
-      <Typography variant="h5" gutterBottom component="div">
+      <Typography className="category-statistics__title" variant="h5" gutterBottom component="div">
         Dashboard
       </Typography>
       <Tabs value={currentTab} onChange={onTabSelect}>
         <Tab label="Outcome" />
         <Tab label="Income" />
       </Tabs>
-      {currentTab === 0 && (
-        <div className="category-statistics__category-outcome">
-          <div className="category-statistics__category-list">
-            {diagramData
-              .sort((a, b) => b.value - a.value)
-              .map((category) => {
-                return <CategoryStatisticsCard category={upperFirst(category.label)} sum={category.value} />;
-              })}
-          </div>
-          <div className="category-statistics__category-diagram">
-            <CategoryStatisticsDiagram data={diagramData} totalSum={categoriesTotal} />
-          </div>
+      <div className="category-statistics__category-outcome">
+        <div className="category-statistics__category-list">
+          {diagramData
+            .sort((a, b) => b.value - a.value)
+            .map((category) => {
+              return <CategoryStatisticsCard category={upperFirst(category.label)} sum={category.value} />;
+            })}
         </div>
-      )}
-      {currentTab === 1 && <div>Income</div>}
+        <div className="category-statistics__category-diagram">
+          <CategoryStatisticsDiagram data={diagramData} totalSum={categoriesTotal} />
+        </div>
+      </div>
     </div>
   );
 }

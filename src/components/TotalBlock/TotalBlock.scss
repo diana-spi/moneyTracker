@@ -4,39 +4,53 @@
   $self: &;
   margin: 20px 50px 0 50px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 250px;
+  //gap: 40px;
 
-  @mixin total-sum {
-    font-size: 40px;
-    font-weight: 700;
-  }
-  @mixin total-title {
-    font-size: 18px;
-    font-weight: 400;
-    color: $background-color-main-light;
-  }
-  &__income {
-    padding: 10px;
-    text-align: left;
-    #{$self}__income-sum {
-      @include total-sum;
-      color: $color-chip-income;
+  #{$self}__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #{$self}__title {
+      font-weight: 700;
     }
-    #{$self}__income-title {
-      @include total-title;
-    }
-  }
-  &__outcome {
-    padding: 10px;
-    text-align: left;
-    #{$self}__outcome-sum {
-      @include total-sum;
-      color: $color-chip-outcome;
-    }
-    #{$self}__outcome-title {
-      @include total-title;
+
+    #{$self}__row {
+      display: flex;
+      align-items: center;
+      gap: 200px;
+      @mixin total-sum {
+        font-size: 40px;
+        font-weight: 700;
+      }
+      @mixin total-title {
+        font-size: 18px;
+        font-weight: 400;
+        color: $background-color-main-light;
+      }
+      #{$self}__income {
+        padding: 10px;
+        text-align: left;
+        #{$self}__income-sum {
+          @include total-sum;
+          color: $color-chip-income;
+        }
+        #{$self}__income-title {
+          @include total-title;
+        }
+      }
+      #{$self}__outcome {
+        padding: 10px;
+        text-align: left;
+        #{$self}__outcome-sum {
+          @include total-sum;
+          color: $color-chip-outcome;
+        }
+        #{$self}__outcome-title {
+          @include total-title;
+        }
+      }
     }
   }
 }
