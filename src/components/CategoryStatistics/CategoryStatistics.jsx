@@ -10,7 +10,7 @@ import { transactionTypes } from "../../data/transactions";
 import moment from "moment";
 import intervalVariants from "../../constans/filterValues";
 
-function CategoryStatistics({ selectedFilter }) {
+function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
   const [currentTab, setCurrentTab] = useState(0);
 
   const onTabSelect = (_, tabIndex) => {
@@ -53,6 +53,11 @@ function CategoryStatistics({ selectedFilter }) {
   const categorySums = transactions
     .filter(
       (transaction) => transaction.type === (currentTab === 0 ? transactionTypes.OUTCOME : transactionTypes.INCOME)
+    )
+    .filter(
+      (transaction) =>
+        selectedBankAcc.length === 0 ||
+        selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
     )
     .filter((transaction) => transaction.date >= getStartedDate().toDate() && transaction.date <= moment().toDate())
     // Get the category and sum of the transaction

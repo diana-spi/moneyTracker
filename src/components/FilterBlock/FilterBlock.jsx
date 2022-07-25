@@ -7,19 +7,19 @@ import intervalVariants from "../../constans/filterValues";
 
 const names = ["Monobank", "Privat", "PUMB"];
 
-function getStyles(name, personName, theme) {
+function getStyles(name, selectedBankAcc, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
+      selectedBankAcc.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
   };
 }
 
-function FilterBlock({ onSelectFilter }) {
+function FilterBlock({ onSelectFilter, onSelectBankAcc }) {
   const [selectedInterval, setSelectedInterval] = useState(intervalVariants.MONTH);
   const [dateRange, setDateRange] = useState(null);
 
   const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
+  const [selectedBankAcc, setSelectedBankAcc] = useState([]);
 
   const onSelectInterval = (interval) => {
     setSelectedInterval(interval);
@@ -27,14 +27,9 @@ function FilterBlock({ onSelectFilter }) {
     onSelectFilter(interval);
   };
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+  const onChangeBankAcc = (event) => {
+    setSelectedBankAcc(event.target.value);
+    onSelectBankAcc(event.target.value);
   };
 
   return (
@@ -87,8 +82,8 @@ function FilterBlock({ onSelectFilter }) {
             className="filter-block__select"
             multiple
             displayEmpty
-            value={personName}
-            onChange={handleChange}
+            value={selectedBankAcc}
+            onChange={onChangeBankAcc}
             input={<OutlinedInput />}
             renderValue={(selected) => {
               if (selected.length === 0) {
@@ -100,7 +95,7 @@ function FilterBlock({ onSelectFilter }) {
             inputProps={{ "aria-label": "Without label" }}
           >
             {names.map((name) => (
-              <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
+              <MenuItem key={name} value={name} style={getStyles(name, selectedBankAcc, theme)}>
                 {name}
               </MenuItem>
             ))}
