@@ -85,6 +85,9 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
   const outcomeData = dataBuildFunction(transactionTypes.OUTCOME);
   const incomeData = dataBuildFunction(transactionTypes.INCOME);
 
+  console.log("outcomeData", outcomeData);
+  console.log("incomeData", incomeData);
+
   return (
     <div className="in-outcome-statistics">
       <ResponsiveLine

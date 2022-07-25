@@ -25,7 +25,7 @@ function MainPage() {
         <div className="main-page__analitycs-block">
           <Header userName="Dima" />
           <FilterBlock onSelectFilter={setSelectedFilter} onSelectBankAcc={setSelectedBankAcc} />
-          <TotalBlock />
+          <TotalBlock selectedFilter={selectedFilter} />
           <Dashboard selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
         </div>
       </Grid>
