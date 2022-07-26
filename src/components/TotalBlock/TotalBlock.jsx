@@ -5,7 +5,7 @@ import { round } from "lodash";
 import moment from "moment";
 import intervalVariants from "../../constans/filterValues";
 
-function TotalBlock({ selectedFilter }) {
+function TotalBlock({ selectedFilter, selectedBankAcc }) {
   const getStartedDate = () => {
     let firstDate = moment();
 
@@ -41,12 +41,17 @@ function TotalBlock({ selectedFilter }) {
                 transactionsData
                   .filter(
                     (transaction) =>
+                      selectedBankAcc.length === 0 ||
+                      selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
+                  )
+                  .filter(
+                    (transaction) =>
                       transaction.date >= getStartedDate().toDate() && transaction.date <= moment().toDate()
                   )
                   .filter((trans) => trans.type === transactionTypes.INCOME)
                   .reduce((acc, transaction) => acc + transaction.sum, 0),
                 2
-              )}
+              ).toFixed(2)}
               $
             </div>
             <div className="total-block__income-title">Income</div>
@@ -58,12 +63,17 @@ function TotalBlock({ selectedFilter }) {
                 transactionsData
                   .filter(
                     (transaction) =>
+                      selectedBankAcc.length === 0 ||
+                      selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
+                  )
+                  .filter(
+                    (transaction) =>
                       transaction.date >= getStartedDate().toDate() && transaction.date <= moment().toDate()
                   )
                   .filter((trans) => trans.type === transactionTypes.OUTCOME)
                   .reduce((acc, transaction) => acc + transaction.sum, 0),
                 2
-              )}
+              ).toFixed(2)}
               $
             </div>
             <div className="total-block__outcome-title">Outcome</div>

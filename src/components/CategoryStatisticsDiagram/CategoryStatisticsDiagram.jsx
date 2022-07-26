@@ -11,6 +11,10 @@ function CategoryStatisticsDiagram({ data, totalSum }) {
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
+        colors={(data) => {
+          console.log(data);
+          return data.data.color;
+        }}
         borderWidth={1}
         borderColor={{
           from: "color",

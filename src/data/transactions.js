@@ -12,16 +12,25 @@ export const transactionsCategories = {
   PET: "pet",
   TRAVEL: "travel",
 };
+export const incomeCategory = {
+  SALARY: "salary",
+  PRIVATE_BUSINESS: "private business",
+};
+export const transactionsColor = {
+  [transactionsCategories.FOOD]: "#74c8da",
+  [transactionsCategories.HEALTH]: "#f65738",
+  [transactionsCategories.CAR]: "#347481",
+  [transactionsCategories.OTHER]: "#f88a1e",
+  [transactionsCategories.PET]: "#f5ae5c",
+  [transactionsCategories.TRAVEL]: "#f2d29a",
+  [incomeCategory.SALARY]: "#95b66d",
+  [incomeCategory.PRIVATE_BUSINESS]: "#347481",
+};
 export const transactionsAccounts = {
   MONOBANK: "monobank",
   PRIVAT: "privat",
   PUMB: "pumb",
 };
-export const incomeCategory = {
-  SALARY: "salary",
-  PRIVATE_BUSINESS: "private business",
-};
-
 const transactions = [];
 for (let i = 0; i < 300; i++) {
   transactions.push(dataGenerator());

@@ -4,13 +4,12 @@ import transactions from "../../data/transactions";
 import intervalVariants from "../../constans/filterValues";
 import { transactionTypes } from "../../data/transactions";
 import moment from "moment";
-import { scopedCssBaselineClasses } from "@mui/material";
+import { min } from "lodash";
 
 function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
   const dataBuildFunction = (type) => {
     const endDate = moment();
     const startDate = getStartedDate(selectedFilter);
-    endDate.date(12);
 
     switch (selectedFilter) {
       // case intervalVariants.DAY:
@@ -21,8 +20,10 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
       case intervalVariants.MONTH:
         const month = endDate.month();
         const mondays = [];
-        const data = {
+        const dataMonth = {
           id: Math.random(),
+          color: type === transactionTypes.INCOME ? "#95b66d" : "#f65738",
+          minValue: 0,
           data: [],
         };
 
@@ -42,22 +43,65 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
           const firstDayOfMonth = moment(mondays[i]).date(1);
           const previousDate = i === 0 ? firstDayOfMonth : mondays[i - 1];
           const transactionsForWeek = transactions
+            .filter(
+              (transaction) =>
+                selectedBankAcc.length === 0 ||
+                selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
+            )
             .filter((transaction) => transaction.type === type)
             .filter((transaction) => {
               const transactionDate = moment(transaction.date);
               return transactionDate.isSameOrAfter(previousDate, "day") && transactionDate.isBefore(mondays[i], "day");
             });
-          const sum = transactionsForWeek.reduce((acc, transaction) => {
+          const sumWeek = transactionsForWeek.reduce((acc, transaction) => {
             return acc + transaction.sum;
           }, 0);
-          data.data.push({
+          dataMonth.data.push({
             x: mondays[i].format("DD.MM.YYYY"),
-            y: sum,
+            y: sumWeek,
           });
         }
-        return data;
-      // case intervalVariants.YEAR:
-      //   break;
+        dataMonth.minValue = min(dataMonth.data.map((data) => data.y));
+
+        return dataMonth;
+
+      case intervalVariants.YEAR:
+        //const months = [];
+        const dataYear = {
+          id: Math.random(),
+          color: type === transactionTypes.INCOME ? "#95b66d" : "#f65738",
+          minValue: 0,
+          data: [],
+        };
+        const currentMonth = endDate.month();
+        for (let i = 0; i <= currentMonth; i++) {
+          const firstDayOfMonth = moment().month(i).startOf("month");
+          const lastDayOfMonth = moment().month(i).endOf("month");
+
+          const transactionsForMonth = transactions
+            .filter(
+              (transaction) =>
+                selectedBankAcc.length === 0 ||
+                selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
+            )
+            .filter((transaction) => transaction.type === type)
+            .filter((transaction) => {
+              const transactionDate = moment(transaction.date);
+              return (
+                transactionDate.isSameOrAfter(firstDayOfMonth, "day") &&
+                transactionDate.isSameOrBefore(lastDayOfMonth, "day")
+              );
+            });
+          const sumMonth = transactionsForMonth.reduce((acc, transaction) => {
+            return acc + transaction.sum;
+          }, 0);
+          dataYear.data.push({
+            x: firstDayOfMonth.format("MMMM"),
+            y: sumMonth,
+          });
+        }
+        dataYear.minValue = min(dataYear.data.map((data) => data.y));
+        return dataYear;
       default:
     }
   };
@@ -103,7 +147,7 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
           reverse: false,
         }}
         yFormat=" >-.2f"
-        curve="natural"
+        curve="cardinal"
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -112,7 +156,7 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "transportation",
+          legend: "date",
           legendOffset: 36,
           legendPosition: "middle",
         }}
@@ -121,10 +165,11 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
+          legend: "sum",
           legendOffset: -40,
           legendPosition: "middle",
         }}
+        colors={(data) => data.color}
         lineWidth={3}
         pointSize={9}
         pointColor={"#fff"}
@@ -135,6 +180,7 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
         areaOpacity={0.65}
         useMesh={true}
         legends={[]}
+        areaBaselineValue={min([outcomeData.minValue, incomeData.minValue])}
       />
     </div>
   );

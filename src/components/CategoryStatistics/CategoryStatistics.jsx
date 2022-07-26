@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import CategoryStatisticsDiagram from "../CategoryStatisticsDiagram/CategoryStatisticsDiagram";
 import CategoryStatisticsCard from "../CategoryStatisticsCard/CategoryStatisticsCard";
 import transactions from "../../data/transactions";
-import getRandomNumber from "../../helpers/getRandomNumber";
 import { upperFirst, sum } from "lodash";
-import { transactionTypes } from "../../data/transactions";
+import { transactionTypes, transactionsColor } from "../../data/transactions";
 import moment from "moment";
 import intervalVariants from "../../constans/filterValues";
 
@@ -17,18 +16,6 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
     setCurrentTab(tabIndex);
   };
 
-  const diagramColors = [
-    "#f94144",
-    "#f65738",
-    "#f36b2c",
-    "#f88a1e",
-    "#f5ae5c",
-    "#f2d29a",
-    "#95b66d",
-    "#387047",
-    "#347481",
-    "#74c8da",
-  ];
   const getStartedDate = () => {
     let firstDate = moment();
 
@@ -78,15 +65,15 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
       id: upperFirst(category),
       label: upperFirst(category),
       value: categorySums[category],
-      color: diagramColors[getRandomNumber(0, diagramColors.length - 1)],
+      color: transactionsColor[category],
     };
   });
 
   return (
     <div className="category-statistics">
-      <Typography className="category-statistics__title" variant="h5" gutterBottom component="div">
+      {/* <Typography className="category-statistics__title" variant="h5" gutterBottom component="div">
         Dashboard
-      </Typography>
+      </Typography> */}
       <Tabs value={currentTab} onChange={onTabSelect}>
         <Tab label="Outcome" />
         <Tab label="Income" />

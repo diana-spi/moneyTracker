@@ -5,4 +5,9 @@
   padding: 20px 30px;
   background-color: $background-color-main-dark-o;
   border-radius: 15px;
+
+  &__wrap {
+    overflow: auto;
+    height: 630px;
+  }
 }

@@ -6,8 +6,10 @@ import IncomeOutcomeStatistics from "../IncomeOutcomeStatistics/IncomeOutcomeSta
 function Dashboard({ selectedFilter, selectedBankAcc }) {
   return (
     <div className="dashboard">
-      <CategoryStatistics selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
-      <IncomeOutcomeStatistics selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
+      <div className="dashboard__wrap">
+        <CategoryStatistics selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
+        <IncomeOutcomeStatistics selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
+      </div>
     </div>
   );
 }

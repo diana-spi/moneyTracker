@@ -19,7 +19,7 @@ function FilterBlock({ onSelectFilter, onSelectBankAcc }) {
   const [dateRange, setDateRange] = useState(null);
 
   const theme = useTheme();
-  const [selectedBankAcc, setSelectedBankAcc] = useState([]);
+  const [selectedBankAcc, setSelectedBankAcc] = useState(names);
 
   const onSelectInterval = (interval) => {
     setSelectedInterval(interval);
