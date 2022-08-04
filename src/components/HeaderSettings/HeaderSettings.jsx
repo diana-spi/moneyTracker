@@ -1,5 +1,3 @@
-import React from "react";
-import PropTypes from "prop-types";
 import { Settings as SettingsIcon, Logout as LogoutIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import "./HeaderSettings.scss";

@@ -1,5 +1,6 @@
 import "./CategoryStatisticsDiagram.scss";
 import { ResponsivePie } from "@nivo/pie";
+import { round } from "lodash";
 
 function CategoryStatisticsDiagram({ data, totalSum }) {
   return (
@@ -11,10 +12,7 @@ function CategoryStatisticsDiagram({ data, totalSum }) {
         padAngle={0.7}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={(data) => {
-          console.log(data);
-          return data.data.color;
-        }}
+        colors={(data) => data.data.color}
         borderWidth={1}
         borderColor={{
           from: "color",
@@ -104,7 +102,7 @@ function CategoryStatisticsDiagram({ data, totalSum }) {
         tooltip={({ datum: { data } }) => {
           return (
             <div className="category-statistics-diagram__tooltip">
-              {data.label}: ${data.value}
+              {data.label}: ${round(data.value, 2).toFixed(2)}
             </div>
           );
         }}

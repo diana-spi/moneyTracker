@@ -1,10 +1,10 @@
 import "./CategoryStatistics.scss";
-import { Tabs, Tab, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Tabs, Tab } from "@mui/material";
+import { useState } from "react";
 import CategoryStatisticsDiagram from "../CategoryStatisticsDiagram/CategoryStatisticsDiagram";
 import CategoryStatisticsCard from "../CategoryStatisticsCard/CategoryStatisticsCard";
 import transactions from "../../data/transactions";
-import { upperFirst, sum } from "lodash";
+import { upperFirst, sum, max } from "lodash";
 import { transactionTypes, transactionsColor } from "../../data/transactions";
 import moment from "moment";
 import intervalVariants from "../../constans/filterValues";
@@ -57,7 +57,13 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
       return acc;
     }, {});
 
+  console.log("categorySums", categorySums);
   const categoriesTotal = sum(Object.values(categorySums));
+
+  const getFillPercentage = (categoryName) => {
+    const maxSum = max(Object.values(categorySums));
+    return (categorySums[categoryName.toLowerCase()] / maxSum) * 100;
+  };
 
   // Convert the object to an array
   const diagramData = Object.keys(categorySums).map((category) => {
@@ -71,9 +77,6 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
 
   return (
     <div className="category-statistics">
-      {/* <Typography className="category-statistics__title" variant="h5" gutterBottom component="div">
-        Dashboard
-      </Typography> */}
       <Tabs value={currentTab} onChange={onTabSelect}>
         <Tab label="Outcome" />
         <Tab label="Income" />
@@ -83,7 +86,14 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
           {diagramData
             .sort((a, b) => b.value - a.value)
             .map((category) => {
-              return <CategoryStatisticsCard category={upperFirst(category.label)} sum={category.value} />;
+              return (
+                <CategoryStatisticsCard
+                  fillPercantage={getFillPercentage(category.label)}
+                  category={upperFirst(category.label)}
+                  transactionColor={transactionsColor[category.label.toLowerCase()]}
+                  sum={category.value}
+                />
+              );
             })}
         </div>
         <div className="category-statistics__category-diagram">

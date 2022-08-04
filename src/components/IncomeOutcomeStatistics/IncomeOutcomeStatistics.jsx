@@ -4,7 +4,7 @@ import transactions from "../../data/transactions";
 import intervalVariants from "../../constans/filterValues";
 import { transactionTypes } from "../../data/transactions";
 import moment from "moment";
-import { min } from "lodash";
+import { min, round } from "lodash";
 
 function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
   const dataBuildFunction = (type) => {
@@ -12,10 +12,39 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
     const startDate = getStartedDate(selectedFilter);
 
     switch (selectedFilter) {
-      // case intervalVariants.DAY:
-      //   break;
-      // case intervalVariants.WEEK:
-      //   break;
+      case intervalVariants.DAY:
+      case intervalVariants.WEEK:
+        const dataWeek = {
+          id: Math.random(),
+          color: type === transactionTypes.INCOME ? "#95b66d" : "#f65738",
+          minValue: 0,
+          data: [],
+        };
+
+        for (let i = 1; i <= endDate.day(); i++) {
+          const firstDate = startDate.clone().day(i);
+          const lastDate = firstDate.clone().hour(23).minute(59).second(59);
+          const transactionsForDay = transactions
+            .filter(
+              (transaction) =>
+                selectedBankAcc.length === 0 ||
+                selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
+            )
+            .filter((transaction) => transaction.type === type)
+            .filter((transaction) => {
+              const transactionDate = moment(transaction.date);
+              return transactionDate.isSameOrAfter(firstDate, "day") && transactionDate.isSameOrBefore(lastDate, "day");
+            });
+          const sumDay = transactionsForDay.reduce((acc, transaction) => {
+            return acc + transaction.sum;
+          }, 0);
+          dataWeek.data.push({
+            x: firstDate.format("dddd"),
+            y: sumDay,
+          });
+        }
+        dataWeek.minValue = min(dataWeek.data.map((data) => data.y));
+        return dataWeek;
 
       case intervalVariants.MONTH:
         const month = endDate.month();
@@ -51,7 +80,11 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
             .filter((transaction) => transaction.type === type)
             .filter((transaction) => {
               const transactionDate = moment(transaction.date);
-              return transactionDate.isSameOrAfter(previousDate, "day") && transactionDate.isBefore(mondays[i], "day");
+              return (
+                transactionDate.isSameOrAfter(previousDate, "day") &&
+                transactionDate.isBefore(mondays[i], "day") &&
+                transactionDate.isBefore(moment())
+              );
             });
           const sumWeek = transactionsForWeek.reduce((acc, transaction) => {
             return acc + transaction.sum;
@@ -66,7 +99,6 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
         return dataMonth;
 
       case intervalVariants.YEAR:
-        //const months = [];
         const dataYear = {
           id: Math.random(),
           color: type === transactionTypes.INCOME ? "#95b66d" : "#f65738",
@@ -129,15 +161,12 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
   const outcomeData = dataBuildFunction(transactionTypes.OUTCOME);
   const incomeData = dataBuildFunction(transactionTypes.INCOME);
 
-  console.log("outcomeData", outcomeData);
-  console.log("incomeData", incomeData);
-
   return (
     <div className="in-outcome-statistics">
       <ResponsiveLine
         className="in-outcome-statistics__chart"
         data={[outcomeData, incomeData]}
-        margin={{ top: 10, right: 30, bottom: 50, left: 50 }}
+        margin={{ top: 10, right: 50, bottom: 50, left: 50 }}
         xScale={{ type: "point" }}
         yScale={{
           type: "linear",
@@ -181,6 +210,10 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
         useMesh={true}
         legends={[]}
         areaBaselineValue={min([outcomeData.minValue, incomeData.minValue])}
+        tooltip={(datum) => {
+          console.log("jhjhuhu", datum);
+          return <div className="in-outcome-statistics__tooltip">${round(datum.point.data.y).toFixed(2)}</div>;
+        }}
       />
     </div>
   );

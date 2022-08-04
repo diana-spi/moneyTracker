@@ -1,5 +1,5 @@
 import "./FilterBlock.scss";
-import React, { useState } from "react";
+import { useState } from "react";
 import { OutlinedInput, FormControl, Select, Button, MenuItem } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { CalendarPicker } from "mui-calendar-picker";

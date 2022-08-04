@@ -15,9 +15,18 @@
     justify-content: space-between;
     align-items: center;
 
-    #{$self}__title {
-      font-size: 18px;
-      font-weight: 600;
+    #{$self}__left-part {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      #{$self}__title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      #{$self}__banc-acc {
+      }
     }
 
     @mixin price {

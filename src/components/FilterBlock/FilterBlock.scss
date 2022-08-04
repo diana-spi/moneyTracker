@@ -16,6 +16,11 @@
       height: 25px;
     }
     #{$self}__calendar {
+      &--filled {
+        .MuiButton-root {
+          height: 25px;
+        }
+      }
       .MuiButton-root {
         background: none;
         color: $primary-color;
@@ -24,7 +29,7 @@
       }
       &:hover {
         .MuiButton-root {
-          background: #74c8da14;
+          background: $primary-color-hover;
           color: $primary-color;
         }
       }

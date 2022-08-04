@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Grid, Tabs, Tab } from "@mui/material";
 import ExpenceBlock from "../../components/ExpenceBlok/ExpenceBlock";
 import Header from "../../components/Header/Header";
@@ -34,7 +34,7 @@ function MainPage() {
           <HeaderSettings />
           <div className="main-page__tabs">
             <Tabs value={currentTab} onChange={onTabSelect}>
-              <Tab label="Add expence" />
+              <Tab label="Add expense" />
               <Tab label="Last transactions" />
             </Tabs>
           </div>

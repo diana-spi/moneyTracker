@@ -16,4 +16,23 @@
 
     overflow: scroll;
   }
+
+  #{$self}__btn-more {
+    margin: 10px 15px 10px 0;
+  }
+  &__btn-up {
+    min-width: 40px !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50% !important;
+    position: absolute !important;
+    bottom: 85px;
+    right: 85px;
+    z-index: 2;
+    background-color: $primary-color-hover !important;
+
+    &:hover {
+      background-color: $primary-color-border !important;
+    }
+  }
 }

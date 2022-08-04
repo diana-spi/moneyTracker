@@ -1,5 +1,5 @@
 import "./Dashboard.scss";
-import React, { useState } from "react";
+import { useState } from "react";
 import CategoryStatistics from "../CategoryStatistics/CategoryStatistics";
 import IncomeOutcomeStatistics from "../IncomeOutcomeStatistics/IncomeOutcomeStatistics";
 
