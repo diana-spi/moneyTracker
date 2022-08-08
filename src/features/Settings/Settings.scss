@@ -1,0 +1,25 @@
+@import "../../styles/colors";
+.settings {
+  $self: &;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $background-color-settings-o;
+  display: flex;
+  //backdrop-filter: blur(3px);
+  z-index: 2;
+  &__window {
+    margin: 80px 150px;
+    background-color: $background-color-main;
+    //background: linear-gradient(110deg, $background-color-main-dark, 97%, $background-color-main);
+    flex: 1;
+    //box-shadow: 0 0 100px rgba(58, 58, 58, 0.603);
+    border-radius: 20px;
+    padding: 30px 50px;
+
+    #{$self}__title {
+    }
+  }
+}

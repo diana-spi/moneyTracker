@@ -1,6 +1,8 @@
 import "./App.scss";
 import MainPage from "./features/MainPage/MainPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Settings from "./features/Settings/Settings";
 
 const darkTheme = createTheme({
   palette: {
@@ -29,7 +31,23 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
-        <MainPage />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route
+              path="/settings"
+              element={
+                <>
+                  <MainPage />
+                  <Settings />
+                </>
+              }
+            />
+          </Routes>
+          {/* <Routes>
+            <Route path="/settings" element={<Settings />} />
+          </Routes> */}
+        </BrowserRouter>
       </div>
     </ThemeProvider>
   );

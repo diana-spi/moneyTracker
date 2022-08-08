@@ -211,7 +211,6 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
         legends={[]}
         areaBaselineValue={min([outcomeData.minValue, incomeData.minValue])}
         tooltip={(datum) => {
-          console.log("jhjhuhu", datum);
           return <div className="in-outcome-statistics__tooltip">${round(datum.point.data.y).toFixed(2)}</div>;
         }}
       />

@@ -57,7 +57,6 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
       return acc;
     }, {});
 
-  console.log("categorySums", categorySums);
   const categoriesTotal = sum(Object.values(categorySums));
 
   const getFillPercentage = (categoryName) => {
