@@ -11,7 +11,7 @@
   //backdrop-filter: blur(3px);
   z-index: 2;
   &__window {
-    margin: 80px 150px;
+    margin: 80px 300px;
     background-color: $background-color-main;
     //background: linear-gradient(110deg, $background-color-main-dark, 97%, $background-color-main);
     flex: 1;
@@ -19,7 +19,27 @@
     border-radius: 20px;
     padding: 30px 50px;
 
-    #{$self}__title {
+    #{$self}__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #{$self}__wrap {
+      margin: 20px 0 20px 0;
+      display: flex;
+
+      #{$self}__tabs {
+        flex: 0.7;
+
+        button {
+          display: flex;
+          align-items: flex-start;
+        }
+      }
+      #{$self}__tabs-content {
+        flex: 2.3;
+      }
     }
   }
 }

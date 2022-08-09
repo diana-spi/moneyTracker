@@ -44,9 +44,6 @@ function App() {
               }
             />
           </Routes>
-          {/* <Routes>
-            <Route path="/settings" element={<Settings />} />
-          </Routes> */}
         </BrowserRouter>
       </div>
     </ThemeProvider>

@@ -89,7 +89,10 @@ function TotalBlock({ selectedFilter, selectedBankAcc }) {
             <div className="total-block__income-title">Income</div>
           </div>
           <div className="total-block__outcome">
-            <div className="total-block__outcome-sum">-{animatedOutcomeSum.toFixed(2)}$</div>
+            <div className="total-block__outcome-sum">
+              {animatedOutcomeSum > 0 ? "-" : ""}
+              {animatedOutcomeSum.toFixed(2)}$
+            </div>
             <div className="total-block__outcome-title">Outcome</div>
           </div>
         </div>
