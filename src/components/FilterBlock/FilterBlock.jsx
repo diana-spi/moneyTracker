@@ -4,6 +4,9 @@ import { OutlinedInput, FormControl, Select, Button, MenuItem } from "@mui/mater
 import { useTheme } from "@mui/material/styles";
 import { CalendarPicker } from "mui-calendar-picker";
 import intervalVariants from "../../constans/filterValues";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import { upperCase } from "lodash";
+import { daysToWeeks } from "date-fns";
 
 const names = ["Monobank", "Privat", "PUMB"];
 
@@ -18,13 +21,15 @@ function FilterBlock({ onSelectFilter, onSelectBankAcc }) {
   const [selectedInterval, setSelectedInterval] = useState(intervalVariants.MONTH);
   const [dateRange, setDateRange] = useState(null);
 
+  console.log(dateRange);
+
   const theme = useTheme();
   const [selectedBankAcc, setSelectedBankAcc] = useState(names);
 
-  const onSelectInterval = (interval) => {
+  const onSelectInterval = (interval, dates) => {
     setSelectedInterval(interval);
-    setDateRange(null);
-    onSelectFilter(interval);
+    setDateRange(dates);
+    onSelectFilter(interval, dates);
   };
 
   const onChangeBankAcc = (event) => {
@@ -71,9 +76,18 @@ function FilterBlock({ onSelectFilter, onSelectBankAcc }) {
             confirmBtnText={"Submit"} // optional
             setDateRange={(dateRange) => {
               setDateRange(dateRange);
-              setSelectedInterval(intervalVariants.NOTHING);
+              onSelectInterval(intervalVariants.PERIOD, dateRange);
             }}
           />
+          {/* <DateRangePicker
+            value={dateRange}
+            calendarIcon={upperCase("Period")}
+            clearIcon={null}
+            locale={"en-EN"}
+            onChange={([start, end]) => {
+              onSelectInterval(intervalVariants.PERIOD, { start, end });
+            }}
+          /> */}
         </div>
       </div>
       <div className="filter-block__bank-acc">

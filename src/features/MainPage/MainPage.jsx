@@ -12,8 +12,9 @@ import intervalVariants from "../../constans/filterValues";
 
 function MainPage() {
   const [currentTab, setCurrentTab] = useState(0);
-  const [selectedFilter, setSelectedFilter] = useState(intervalVariants.MONTH);
+  const [selectedFilter, setSelectedFilter] = useState({ interval: intervalVariants.MONTH, dates: null });
   const [selectedBankAcc, setSelectedBankAcc] = useState([]);
+  console.log("selectedFilter", selectedFilter);
 
   const onTabSelect = (_, tabIndex) => {
     setCurrentTab(tabIndex);
@@ -24,7 +25,10 @@ function MainPage() {
       <Grid item xs={8.5}>
         <div className="main-page__analitycs-block">
           <Header userName="Dima" />
-          <FilterBlock onSelectFilter={setSelectedFilter} onSelectBankAcc={setSelectedBankAcc} />
+          <FilterBlock
+            onSelectFilter={(interval, dates) => setSelectedFilter({ interval, dates })}
+            onSelectBankAcc={setSelectedBankAcc}
+          />
           <TotalBlock selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
           <Dashboard selectedFilter={selectedFilter} selectedBankAcc={selectedBankAcc} />
         </div>

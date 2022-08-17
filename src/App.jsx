@@ -3,6 +3,7 @@ import MainPage from "./features/MainPage/MainPage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Settings from "./features/Settings/Settings";
+import { Suspense } from "react";
 
 const darkTheme = createTheme({
   palette: {
@@ -33,14 +34,23 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback="loading">
+                  <MainPage />
+                </Suspense>
+              }
+            />
             <Route
               path="/settings"
               element={
-                <>
-                  <MainPage />
-                  <Settings />
-                </>
+                <Suspense fallback="loading">
+                  <>
+                    <MainPage />
+                    <Settings />
+                  </>
+                </Suspense>
               }
             />
           </Routes>

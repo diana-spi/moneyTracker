@@ -13,7 +13,7 @@ function TotalBlock({ selectedFilter, selectedBankAcc }) {
   const getStartedDate = () => {
     let firstDate = moment();
 
-    switch (selectedFilter) {
+    switch (selectedFilter.interval) {
       case intervalVariants.DAY:
         firstDate.hour(0).minute(0).second(0);
         break;
@@ -25,6 +25,9 @@ function TotalBlock({ selectedFilter, selectedBankAcc }) {
         break;
       case intervalVariants.YEAR:
         firstDate.month(0).date(1).hour(0).minute(0).second(0);
+        break;
+      case intervalVariants.PERIOD:
+        firstDate = moment(selectedFilter.dates.start);
         break;
       default:
     }
@@ -40,7 +43,12 @@ function TotalBlock({ selectedFilter, selectedBankAcc }) {
             selectedBankAcc.length === 0 ||
             selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
         )
-        .filter((transaction) => transaction.date >= getStartedDate().toDate() && transaction.date <= moment().toDate())
+        .filter(
+          (transaction) =>
+            transaction.date >= getStartedDate().toDate() &&
+            transaction.date <=
+              (selectedFilter.dates?.end ? moment(selectedFilter.dates.end).toDate() : moment().toDate())
+        )
         .filter((trans) => trans.type === trType)
         .reduce((acc, transaction) => acc + transaction.sum, 0),
       2
@@ -84,16 +92,16 @@ function TotalBlock({ selectedFilter, selectedBankAcc }) {
           Total
         </Typography>
         <div className="total-block__row">
-          <div className="total-block__income">
-            <div className="total-block__income-sum">{animatedIncomeSum.toFixed(2)}$</div>
-            <div className="total-block__income-title">Income</div>
-          </div>
           <div className="total-block__outcome">
             <div className="total-block__outcome-sum">
               {animatedOutcomeSum > 0 ? "-" : ""}
               {animatedOutcomeSum.toFixed(2)}$
             </div>
             <div className="total-block__outcome-title">Outcome</div>
+          </div>
+          <div className="total-block__income">
+            <div className="total-block__income-sum">{animatedIncomeSum.toFixed(2)}$</div>
+            <div className="total-block__income-title">Income</div>
           </div>
         </div>
       </div>

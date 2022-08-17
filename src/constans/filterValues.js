@@ -3,7 +3,7 @@ const intervalVariants = {
   WEEK: "week",
   MONTH: "month",
   YEAR: "year",
-  NOTHING: null,
+  PERIOD: "period",
 };
 
 export default intervalVariants;

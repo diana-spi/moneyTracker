@@ -19,7 +19,7 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
   const getStartedDate = () => {
     let firstDate = moment();
 
-    switch (selectedFilter) {
+    switch (selectedFilter.interval) {
       case intervalVariants.DAY:
         firstDate.hour(0).minute(0).second(0);
         break;
@@ -31,6 +31,9 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
         break;
       case intervalVariants.YEAR:
         firstDate.month(0).date(1).hour(0).minute(0).second(0);
+        break;
+      case intervalVariants.PERIOD:
+        firstDate = moment(selectedFilter.dates.start);
         break;
       default:
     }
@@ -46,7 +49,11 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
         selectedBankAcc.length === 0 ||
         selectedBankAcc.map((account) => account.toLowerCase()).includes(transaction.account)
     )
-    .filter((transaction) => transaction.date >= getStartedDate().toDate() && transaction.date <= moment().toDate())
+    .filter(
+      (transaction) =>
+        transaction.date >= getStartedDate().toDate() &&
+        transaction.date <= (selectedFilter.dates?.end ? moment(selectedFilter.dates.end).toDate() : moment().toDate())
+    )
     // Get the category and sum of the transaction
     .reduce((acc, transaction) => {
       if (!acc[transaction.category]) {
@@ -81,23 +88,28 @@ function CategoryStatistics({ selectedFilter, selectedBankAcc }) {
         <Tab label="Income" />
       </Tabs>
       <div className="category-statistics__category-outcome">
-        <div className="category-statistics__category-list">
-          {diagramData
-            .sort((a, b) => b.value - a.value)
-            .map((category) => {
-              return (
-                <CategoryStatisticsCard
-                  fillPercantage={getFillPercentage(category.label)}
-                  category={upperFirst(category.label)}
-                  transactionColor={transactionsColor[category.label.toLowerCase()]}
-                  sum={category.value}
-                />
-              );
-            })}
-        </div>
-        <div className="category-statistics__category-diagram">
-          <CategoryStatisticsDiagram data={diagramData} totalSum={categoriesTotal} />
-        </div>
+        {!!diagramData.length && (
+          <>
+            <div className="category-statistics__category-list">
+              {diagramData
+                .sort((a, b) => b.value - a.value)
+                .map((category) => {
+                  return (
+                    <CategoryStatisticsCard
+                      fillPercantage={getFillPercentage(category.label)}
+                      category={upperFirst(category.label)}
+                      transactionColor={transactionsColor[category.label.toLowerCase()]}
+                      sum={category.value}
+                    />
+                  );
+                })}
+            </div>
+            <div className="category-statistics__category-diagram">
+              <CategoryStatisticsDiagram data={diagramData} totalSum={categoriesTotal} />
+            </div>
+          </>
+        )}
+        {!diagramData.length && <div className="category-statistics__no-data">No data</div>}
       </div>
     </div>
   );

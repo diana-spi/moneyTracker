@@ -7,6 +7,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { upperFirst } from "lodash";
+import { useForm, Controller } from "react-hook-form";
 
 const initialState = {
   bankAcc: Object.values(transactionsAccounts)[0],
@@ -19,6 +20,16 @@ const initialState = {
 
 function ExpenceBlock() {
   const [userInput, setUserInput] = useState(initialState);
+  const { control, handleSubmit, setValue } = useForm({
+    defaultValues: {
+      bankAcc: "monobank",
+      type: "outcome",
+      category: "food",
+      sum: null,
+      comment: "",
+      date: new Date(),
+    },
+  });
 
   const getValue = (name) => (event) => {
     const { value } = event.target;
@@ -28,119 +39,135 @@ function ExpenceBlock() {
   const getDateValue = (date) => {
     setUserInput({ ...userInput, transactionDate: date.toDate() });
   };
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div className="expence-block">
       <div className="expence-block__wrap">
-        <div className="expence-block__account">
-          <FormControl>
-            <InputLabel variant="standard" className="title-field">
-              Bank account
-            </InputLabel>
-            <NativeSelect
-              className="select-field"
-              defaultValue="monobank"
-              value={userInput.bankAcc}
-              onChange={getValue("bankAcc")}
-            >
-              <option value="monobank">Monobank</option>
-              <option value="privat">Privat</option>
-              <option value="pumb">PUMB</option>
-            </NativeSelect>
-          </FormControl>
-        </div>
-
-        <div className="expence-block__type">
-          <FormControl>
-            <InputLabel variant="standard" className="title-field">
-              Type
-            </InputLabel>
-            <NativeSelect
-              className="select-field"
-              defaultValue="outcome"
-              value={userInput.transactionType}
-              onChange={getValue("transactionType")}
-            >
-              <option value="outcome">Outcome</option>
-              <option value="income">Income</option>
-            </NativeSelect>
-          </FormControl>
-        </div>
-
-        <div className="expence-block__category">
-          <FormControl>
-            <InputLabel variant="standard" className="title-field">
-              Category
-            </InputLabel>
-            <NativeSelect
-              className="select-field"
-              defaultValue="outcome"
-              value={userInput.transactionCategory}
-              onChange={getValue("transactionCategory")}
-            >
-              {Object.values(transactionsCategories).map((category) => (
-                <option key={category} value={category}>
-                  {upperFirst(category)}
-                </option>
-              ))}
-            </NativeSelect>
-          </FormControl>
-        </div>
-
-        <div className="expence-block__sum">
-          <FormControl>
-            <InputLabel variant="standard" className="title-field">
-              Sum
-            </InputLabel>
-            <Input
-              className="select-field"
-              value={userInput.transactionSum}
-              onChange={getValue("transactionSum")}
-              startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            />
-          </FormControl>
-        </div>
-
-        <div className="expence-block__comment">
-          <FormControl>
-            <TextField
-              id="standard-basic"
-              label="Comment"
-              variant="standard"
-              value={userInput.transactionComment}
-              onChange={getValue("transactionComment")}
-            />
-          </FormControl>
-        </div>
-
-        <div className="expence-block__date">
-          <FormControl>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                className="expence-block__date-picker"
-                label="Date"
-                inputFormat="DD/MM/YYYY"
-                value={moment(userInput.transactionDate)}
-                onChange={getDateValue}
-                renderInput={(params) => <TextField {...params} />}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="expence-block__account">
+            <FormControl>
+              <InputLabel variant="standard" className="title-field">
+                Bank account
+              </InputLabel>
+              <Controller
+                name="bankAcc"
+                control={control}
+                render={({ field }) => (
+                  <NativeSelect className="select-field" {...field}>
+                    <option value="monobank">Monobank</option>
+                    <option value="privat">Privat</option>
+                    <option value="pumb">PUMB</option>
+                  </NativeSelect>
+                )}
               />
-            </LocalizationProvider>
-          </FormControl>
-        </div>
+            </FormControl>
+          </div>
 
-        <div className="expence-block__buttons">
-          <Button
-            className="clear-btn"
-            variant="text"
-            onClick={() => {
-              setUserInput(initialState);
-            }}
-          >
-            Clear
-          </Button>
-          <Button className="add-btn" variant="contained">
-            Add
-          </Button>
-        </div>
+          <div className="expence-block__type">
+            <FormControl>
+              <InputLabel variant="standard" className="title-field">
+                Type
+              </InputLabel>
+              <Controller
+                name="type"
+                control={control}
+                render={({ field }) => (
+                  <NativeSelect className="select-field" {...field}>
+                    <option value="outcome">Outcome</option>
+                    <option value="income">Income</option>
+                  </NativeSelect>
+                )}
+              />
+            </FormControl>
+          </div>
+
+          <div className="expence-block__category">
+            <FormControl>
+              <InputLabel variant="standard" className="title-field">
+                Category
+              </InputLabel>
+              <Controller
+                name="category"
+                control={control}
+                render={({ field }) => (
+                  <NativeSelect className="select-field" {...field}>
+                    {Object.values(transactionsCategories).map((category) => (
+                      <option key={category} value={category}>
+                        {upperFirst(category)}
+                      </option>
+                    ))}
+                  </NativeSelect>
+                )}
+              />
+            </FormControl>
+          </div>
+
+          <div className="expence-block__sum">
+            <FormControl>
+              <InputLabel variant="standard" className="title-field">
+                Sum
+              </InputLabel>
+              <Controller
+                name="sum"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    className="select-field"
+                    {...field}
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                  />
+                )}
+              />
+            </FormControl>
+          </div>
+
+          <div className="expence-block__comment">
+            <FormControl>
+              <Controller
+                name="comment"
+                control={control}
+                render={({ field }) => <TextField id="standard-basic" label="Comment" variant="standard" {...field} />}
+              />
+            </FormControl>
+          </div>
+
+          <div className="expence-block__date">
+            <FormControl>
+              <Controller
+                name="date"
+                control={control}
+                render={({ field }) => (
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <DesktopDatePicker
+                      className="expence-block__date-picker"
+                      label="Date"
+                      inputFormat="DD/MM/YYYY"
+                      {...field}
+                      onChange={(date) => setValue("date", date.toDate())}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                )}
+              />
+            </FormControl>
+          </div>
+
+          <div className="expence-block__buttons">
+            <Button
+              className="clear-btn"
+              variant="text"
+              onClick={() => {
+                setUserInput(initialState);
+              }}
+            >
+              Clear
+            </Button>
+            <Button type="submit" className="add-btn" variant="contained">
+              Add
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -6,12 +6,29 @@ import { transactionTypes } from "../../data/transactions";
 import moment from "moment";
 import { min, round } from "lodash";
 
+const periodToIntervalType = (dates) => {
+  const start = moment(dates.start);
+  const end = moment(dates.end);
+  const diffMonth = end.diff(start, "months");
+  const diffDays = end.diff(start, "days");
+  if (diffDays <= 7) {
+    return intervalVariants.WEEK;
+  } else if (diffMonth < 2) {
+    return intervalVariants.MONTH;
+  }
+  return intervalVariants.YEAR;
+};
+
 function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
   const dataBuildFunction = (type) => {
-    const endDate = moment();
+    const endDate = selectedFilter.dates?.end ? moment(selectedFilter.dates.end) : moment();
     const startDate = getStartedDate(selectedFilter);
+    const calcInterval =
+      selectedFilter.interval === intervalVariants.PERIOD
+        ? periodToIntervalType(selectedFilter.dates)
+        : selectedFilter.interval;
 
-    switch (selectedFilter) {
+    switch (calcInterval) {
       case intervalVariants.DAY:
       case intervalVariants.WEEK:
         const dataWeek = {
@@ -106,7 +123,7 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
           data: [],
         };
         const currentMonth = endDate.month();
-        for (let i = 0; i <= currentMonth; i++) {
+        for (let i = startDate.month(); i <= currentMonth; i++) {
           const firstDayOfMonth = moment().month(i).startOf("month");
           const lastDayOfMonth = moment().month(i).endOf("month");
 
@@ -134,13 +151,14 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
         }
         dataYear.minValue = min(dataYear.data.map((data) => data.y));
         return dataYear;
+
       default:
     }
   };
 
   const getStartedDate = (selectedFilter) => {
-    const startDate = moment();
-    switch (selectedFilter) {
+    let startDate = moment();
+    switch (selectedFilter.interval) {
       case intervalVariants.DAY:
         startDate.hour(0).minute(0).second(0);
         break;
@@ -152,6 +170,9 @@ function IncomeOutcomeStatistics({ selectedFilter, selectedBankAcc }) {
         break;
       case intervalVariants.YEAR:
         startDate.month(0).date(1).hour(0).minute(0).second(0);
+        break;
+      case intervalVariants.PERIOD:
+        startDate = moment(selectedFilter.dates.start);
         break;
       default:
     }

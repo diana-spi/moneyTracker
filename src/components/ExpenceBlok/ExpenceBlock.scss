@@ -8,66 +8,67 @@
   height: auto;
 
   &__wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      #{$self}__account {
+        display: flex;
+        flex-direction: column;
+        &-select {
+          width: 100%;
+        }
+      }
 
-    #{$self}__account {
-      display: flex;
-      flex-direction: column;
-      &-select {
-        width: 100%;
+      #{$self}__type {
+        display: flex;
+        flex-direction: column;
+        &-select {
+          width: 100%;
+        }
       }
-    }
+      #{$self}__date {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-weight: 500;
+        }
+        &-picker {
+          width: 100%;
+        }
+      }
+      #{$self}__category {
+        display: flex;
+        flex-direction: column;
+        &-select {
+          width: 100%;
+        }
+      }
+      #{$self}__sum {
+        display: flex;
+        flex-direction: column;
+      }
+      #{$self}__comment {
+        display: flex;
+        flex-direction: column;
+      }
 
-    #{$self}__type {
-      display: flex;
-      flex-direction: column;
-      &-select {
-        width: 100%;
-      }
-    }
-    #{$self}__date {
-      display: flex;
-      flex-direction: column;
-      label {
-        font-weight: 500;
-      }
-      &-picker {
-        width: 100%;
-      }
-    }
-    #{$self}__category {
-      display: flex;
-      flex-direction: column;
-      &-select {
-        width: 100%;
-      }
-    }
-    #{$self}__sum {
-      display: flex;
-      flex-direction: column;
-    }
-    #{$self}__comment {
-      display: flex;
-      flex-direction: column;
-    }
+      #{$self}__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        gap: 16px;
 
-    #{$self}__buttons {
-      display: flex;
-      align-items: center;
-      justify-content: right;
-      gap: 16px;
-
-      .clear-btn {
-        font-size: 12px;
-        font-weight: 400;
-        width: 80px;
-      }
-      .add-btn {
-        font-size: 16px;
-        font-weight: 700;
-        width: 90px;
+        .clear-btn {
+          font-size: 12px;
+          font-weight: 400;
+          width: 80px;
+        }
+        .add-btn {
+          font-size: 16px;
+          font-weight: 700;
+          width: 90px;
+        }
       }
     }
   }

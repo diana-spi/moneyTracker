@@ -1,0 +1,40 @@
+{
+  "mainPage": {
+    "header": {
+      "welcomeText": "Welcome back, {{userName}}!"
+    },
+    "filterBlock": {
+      "filterButtons": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month",
+        "year": "Year",
+        "period": "Period"
+      }
+    },
+    "totalBlock": {
+      "totalText": "Total",
+      "outcome": "Outcome",
+      "income": "Income"
+    },
+    "dashboardBlock": {
+      "outcome": "Outcome",
+      "income": "Income"
+    },
+    "expenseBlock": {
+      "title": "Add Expense",
+      "bankAccount": "Bank account",
+      "type": "Type",
+      "category": "Category",
+      "sum": "Sum",
+      "comment": "Comment",
+      "date": "Date",
+      "add": "Add",
+      "clear": "Clear"
+    },
+    "lastTransactions": {
+      "title": "Last transactions",
+      "buttonMore": "Show more"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "mainPage": {
+    "header": {
+      "welcomeText": "Привіт, {{userName}}!"
+    },
+    "filterBlock": {
+      "filterButtons": {
+        "day": "День",
+        "week": "Тиждень",
+        "month": "Місяць",
+        "year": "Рік",
+        "period": "Період"
+      }
+    },
+    "totalBlock": {
+      "totalText": "Загалом",
+      "outcome": "Витрати",
+      "income": "Дохід"
+    },
+    "dashboardBlock": {
+      "outcome": "Витрати",
+      "income": "Дохід"
+    },
+    "expenseBlock": {
+      "title": "Створити нову",
+      "bankAccount": "Банківський рахунок",
+      "type": "Тип",
+      "category": "Категорія",
+      "sum": "Сума",
+      "comment": "Коментар",
+      "date": "Дата",
+      "add": "Додати",
+      "clear": "Очистити"
+    },
+    "lastTransactions": {
+      "title": "Останні транзакції",
+      "buttonMore": "Більше"
+    }
+  }
+}
